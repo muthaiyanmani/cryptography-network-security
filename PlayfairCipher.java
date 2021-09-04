@@ -5,29 +5,25 @@ public class PlayfairCipher {
     private int length = 0;
     private String[][] table;
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         PlayfairCipher pf = new PlayfairCipher();
     }
 
     private PlayfairCipher() {
-        System.out.println("Enter the key for playfair Cipher: ");
+        System.out.println("Enter the key for playfair ciper: ");
         Scanner sc = new Scanner(System.in);
         String key = parseString(sc);
         while (key.equals(""))
             key = parseString(sc);
-        table = this.cipherTable(key);
-
-        System.out.println("Enter the plaintext for playfair Encipher: ");
-        String input = parseString(sc);
+            table = this.cipherTable(key);
+            System.out.println("Enter the plaintext to be enciper:");
+            String input = parseString(sc);
         while (input.equals(""))
             input = parseString(sc);
-        table = this.cipherTable(input);
-
-        String output = cipher(input);
-        String decodedOutput = decode(output);
-
-        this.keyTable(table);
-        this.printResults(output, decodedOutput);
+            String output = cipher(input);
+            String decodedOutput = decode(output);
+            this.keyTable(table);
+            this.printResults(output, decodedOutput);
     }
 
     private String parseString(Scanner sc) {
@@ -40,8 +36,7 @@ public class PlayfairCipher {
 
     private String[][] cipherTable(String key) {
         String[][] playfairTable = new String[5][5];
-        String keyString = key + "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
+        String keyString = key + "ABCDEFGHIKLMNOPQRSTUVWXYZ";  
         for (int i = 0; i < 5; i++)
             for (int j = 0; j < 5; j++)
                 playfairTable[i][j] = "";
@@ -62,9 +57,9 @@ public class PlayfairCipher {
         return playfairTable;
     }
 
+
     private String cipher(String in) {
         length = (int) in.length() / 2 + in.length() % 2;
-
         for (int i = 0; i < (length - 1); i++) {
             if (in.charAt(2 * i) == in.charAt(2 * i + 1)) {
                 in = new StringBuffer(in).insert(2 * i + 1, 'X').toString();
@@ -81,6 +76,7 @@ public class PlayfairCipher {
                 in = in + "X";
             digraph[j] = in.charAt(2 * j) + "" + in.charAt(2 * j + 1);
         }
+
         String out = "";
         String[] encDigraphs = new String[length];
         encDigraphs = encodeDigraph(digraph);
@@ -105,7 +101,9 @@ public class PlayfairCipher {
             } else if (c1 == c2) {
                 r1 = (r1 + 1) % 5;
                 r2 = (r2 + 1) % 5;
-            } else {
+            }
+
+            else {
                 int temp = c1;
                 c1 = c2;
                 c2 = temp;
@@ -132,16 +130,17 @@ public class PlayfairCipher {
                 r1 = (r1 + 4) % 5;
                 r2 = (r2 + 4) % 5;
             } else {
+
                 int temp = c1;
                 c1 = c2;
                 c2 = temp;
             }
             decoded = decoded + table[r1][c1] + table[r2][c2];
         }
+
         return decoded;
     }
 
-   
     private Point getPoint(char c) {
         Point pt = new Point(0, 0);
         for (int i = 0; i < 5; i++)
@@ -156,6 +155,7 @@ public class PlayfairCipher {
         System.out.println();
 
         for (int i = 0; i < 5; i++) {
+
             for (int j = 0; j < 5; j++) {
 
                 System.out.print(printTable[i][j] + " ");
@@ -173,6 +173,6 @@ public class PlayfairCipher {
         System.out.print("Decrypted Message: ");
 
         System.out.println(dec);
-
     }
+
 }
