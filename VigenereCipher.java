@@ -44,7 +44,6 @@ public class VigenereCipher {
     public static void main(String args[]){
         String Str = "COMPUTERSCIENCE";
         String Keyword="JAVA";
-
         String str=LowerToUpper(Str);
         String keyword = LowerToUpper(Keyword);
 
